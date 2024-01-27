@@ -1,8 +1,8 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const sqlite3 = require("sqlite3").verbose();
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import bodyParser from "body-parser";
+import sqlite3 from "sqlite3";
+import cors from "cors";
+//require("dotenv").config();
 
 //Cnfigure ports
 const args = process.argv;
@@ -12,7 +12,7 @@ const PORT = p_index !== -1 ? args[p_index + 1] : process.env.PORT || 5000;
 const CLIENT_PORT =
   cp_index !== -1 ? args[cp_index + 1] : process.env.CLIENT_PORT || 3000;
 
-const app = express();
+export const app = express();
 app.use(
   cors({
     origin: `http://localhost:${CLIENT_PORT}`,
