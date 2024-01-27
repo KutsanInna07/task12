@@ -1,1 +1,41 @@
+name: ContinuousIntegration CI
 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm ci
+          npm install mocha chai sinon supertest --save-dev
+
+      - name: Build Project
+        run: |
+          npm run
+
+      - name: Run Unit Tests
+        run: |
+          CI=true npm test
+        env:
+          CI: true
